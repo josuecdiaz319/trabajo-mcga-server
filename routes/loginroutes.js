@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 const userSchema = require('../models/user')
 const User = mongoose.model('user', userSchema)
 
-async function createUser(username, password) {
+async function createUser(username, password, email) {
   return new User({
     username,
     password,
-    created: Date.now()
+    email
   }).save()
 }
 
@@ -14,42 +14,81 @@ async function findUser(username, password) {
   return await User.findOne({ username, password })
 }
 
+async function existUser(username, email)
+{
+  let user = await User.findOne({ username })
+  if(user)
+  {
+    return "Usuario existente.";
+  }
+  else
+  {
+    user = await User.findOne({ email })
+    if(user)
+    {
+      return "E-mail existente";
+    }
+    else
+    {
+      return null;
+    }
+  }
+}
+
+function mongooseConnect()
+{
+  let conn = mongoose.connect('mongodb+srv://trabajomcga:asdasd123@cluster0-m319q.mongodb.net/test?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  mongoose.connection.on('error', function (err) {
+    console.log("Ha ocurrido un error en la conexión")
+    console.log(err)
+    process.exit(1)
+   });
+   return conn
+}
+
 module.exports = (app) => {
-    //app.post(`/api/login`, async (req, res) => {
-      /*let product = await Product.create(req.body);
-      return res.status(201).send({
-        error: false,
-        product
-      })*/
-    //});
-    app.get(`/api/login/:username/:password`, async (req, res) => {
-      const username = req.params.username, password = req.params.password
-      console.log("Usuario:" + username + " Password:" + password)
-      let connector
-      try {
-        connector = mongoose.connect('mongodb+srv://trabajomcga:asdasd123@cluster0-m319q.mongodb.net/test?retryWrites=true&w=majority', {
-          useNewUrlParser: true,
-          useUnifiedTopology: true
-        });
-      } catch (e) {
-        handleError(error);
+
+    app.post(`/api/login/`, async (req, res) => {
+      const username = req.body.username, password = req.body.password
+      console.log("LOGIN: Usuario:" + username + " Password:" + password)
+      let connector = mongooseConnect()
+
+      let user = await connector.then(async () => {
+       return findUser(username, password)
+      })
+
+      if (user) 
+      {
+        res.json({message:"Credenciales correctas. Email: " + user.email})
       }
-      mongoose.connection.on('connected', async () => {
-        console.log("Conexión a MongoDB exitosa");
-        let user = await connector.then(async () => {
-         return findUser(username, password)
-        })
-
-        if (!user) {
-         user = await createUser(username, password)
-         console.log("Creando usuario.")
-        }
-        else
-        {
-          console.log("Usuario encontrado.")
-        }
-
-
-      });
+      else {
+        res.json({message:"Credenciales inválidas."})
+      }
+     
     });
+
+    app.post(`/api/register/`, async (req, res) => {
+      const username = req.body.username, password = req.body.password, email = req.body.email
+      console.log("REGISTER: Usuario:" + username + " Password:" + password + " Email: " + email)
+      let connector = mongooseConnect()
+
+      let message = await connector.then(async () => {
+       return existUser(username, email)
+      })
+
+      if(message == null)
+      {
+        await createUser(username, password, email)
+        res.json({message:'Usuario registrado.'})
+      }
+      else
+      {
+        res.json({message})
+      }
+      
+
+    })
 }
