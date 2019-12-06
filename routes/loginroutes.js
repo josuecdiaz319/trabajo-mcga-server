@@ -1,6 +1,5 @@
-const mongoose = require('mongoose')
-const userSchema = require('../models/user')
-const User = mongoose.model('user', userSchema)
+const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 async function createUser(username, password, email) {
   return new User({
@@ -14,7 +13,7 @@ async function findUser(username, password) {
   return await User.findOne({ username, password })
 }
 
-async function existUser(username, email)
+async function existUserAndEmail(username, email)
 {
   let user = await User.findOne({ username })
   if(user)
@@ -35,60 +34,81 @@ async function existUser(username, email)
   }
 }
 
-function mongooseConnect()
+async function getUserbyUsername(username)
 {
-  let conn = mongoose.connect('mongodb+srv://trabajomcga:asdasd123@cluster0-m319q.mongodb.net/test?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  mongoose.connection.on('error', function (err) {
-    console.log("Ha ocurrido un error en la conexión")
-    console.log(err)
-    process.exit(1)
-   });
-   return conn
+  return await User.findOne({username})
 }
 
+async function getUserbyEmail(email)
+{
+  return await User.findOne({email})
+}
+
+
 module.exports = (app) => {
+  app.post(`/api/login/`, async (req, res) => {
+    const username = req.body.username, password = req.body.password
+    console.log("LOGIN: Usuario:" + username + " Password:" + password)
+    
+    let user = await findUser(username, password)
 
-    app.post(`/api/login/`, async (req, res) => {
-      const username = req.body.username, password = req.body.password
-      console.log("LOGIN: Usuario:" + username + " Password:" + password)
-      let connector = mongooseConnect()
-
-      let user = await connector.then(async () => {
-       return findUser(username, password)
+    if (user) 
+    {
+      jwt.sign({user}, 'laweacuantica', (err, token) => {
+        if(!err)
+        {
+          res.json({token, message:"Credenciales correctas. Email: " + user.email})
+        }
       })
+    }
+    else {
+      res.json({message:"Credenciales inválidas."})
+    }
+  });
 
-      if (user) 
-      {
-        res.json({message:"Credenciales correctas. Email: " + user.email})
-      }
-      else {
-        res.json({message:"Credenciales inválidas."})
-      }
-     
-    });
+  app.post(`/api/register/`, async (req, res) => {
+    const username = req.body.username, password = req.body.password, email = req.body.email
+    console.log("REGISTER: Usuario:" + username + " Password:" + password + " Email: " + email)
+    
+    let message = await existUserAndEmail(username, email)
 
-    app.post(`/api/register/`, async (req, res) => {
-      const username = req.body.username, password = req.body.password, email = req.body.email
-      console.log("REGISTER: Usuario:" + username + " Password:" + password + " Email: " + email)
-      let connector = mongooseConnect()
+    if(message == null)
+    {
+      await createUser(username, password, email)
+      res.json({message:'Usuario registrado.'})
+    }
+    else
+    {
+      res.json({message})
+    }
+  })
 
-      let message = await connector.then(async () => {
-       return existUser(username, email)
-      })
+  app.get(`/api/userregistered/:username`, async(req, res) => {
+    const username = req.params.username
+    console.log("USERREGISTERED: Username: " + username)
+    let user = await getUserbyUsername(username)
+    if(user)
+    {
+      res.json({message:"Yes"})
+    }
+    else
+    {
+      res.json({message:"No"})
+    }
+  })
 
-      if(message == null)
-      {
-        await createUser(username, password, email)
-        res.json({message:'Usuario registrado.'})
-      }
-      else
-      {
-        res.json({message})
-      }
-      
+  app.get(`/api/emailregistered/:email`, async(req, res) => {
+    const email = req.params.email
+    console.log("USERREGISTERED: Email: " + email)
+    let user = await getUserbyEmail(email)
+    if(user)
+    {
+      res.json({message:"Yes"})
+    }
+    else
+    {
+      res.json({message:"No"})
+    }
+  })
 
-    })
 }
