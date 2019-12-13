@@ -1,0 +1,366 @@
+{
+	"info": {
+		"_postman_id": "f958de7e-d3e3-4b3b-96ef-e8ac46a6ce28",
+		"name": "mcga",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:5000/api/register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "asdasdasd",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "asdasd",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "asdasd",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "asdasd",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "asdasd@asdasd",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/register?",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"register"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "asdasd",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "asdasd",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/login/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "asdasdasd",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "asdasd",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "asdasd",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "asdasd",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/login/?",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"login",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "asdasd",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "asdasd",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/item/add/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "itemname",
+							"value": "asdasd123123",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "asdasd123123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/api/item/add/",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"item",
+						"add",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "asdasd",
+							"disabled": true
+						},
+						{
+							"key": "descripcion",
+							"value": "asdasd",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/item/modify/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "itemname",
+							"value": "empanadaasdd",
+							"type": "text"
+						},
+						{
+							"key": "newname",
+							"value": "asdasd",
+							"type": "text"
+						},
+						{
+							"key": "newdescription",
+							"value": "empanadax4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/api/item/modify/",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"item",
+						"modify",
+						""
+					],
+					"query": [
+						{
+							"key": "itemname",
+							"value": "asdasd",
+							"disabled": true
+						},
+						{
+							"key": "newname",
+							"value": "queso",
+							"disabled": true
+						},
+						{
+							"key": "newdescription",
+							"value": "quesox2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/item/delete",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "itemname",
+							"value": "asdasda",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/api/item/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"item",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/item/getlist/1/20",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVkZjI1MmNiZDNlMTgwMzFlMDlhZjgzZCIsInVzZXJuYW1lIjoid2VhMTIzIiwicGFzc3dvcmQiOiIkMmIkMTAkaVBwRXNNQ1k5cUQuOWR2MjBLcHlzT0k2WXJ0VjF5SDNCQ3JPcjB6Unk2YThoVzd4dHhYSUMiLCJlbWFpbCI6ImVhdzEyM0Bhc2Rhc2QiLCJjcmVhdGVkQXQiOiIyMDE5LTEyLTEyVDE0OjQ2OjM1LjA3MFoiLCJ1cGRhdGVkQXQiOiIyMDE5LTEyLTEyVDE0OjQ2OjM1LjA3MFoiLCJfX3YiOjB9LCJpYXQiOjE1NzYxODQ1NjcsImV4cCI6MTU3NjE4NTE2N30.ijYePgqH7dFx6TTT4rtuwlnoyS2N4OsXljxdIlKPJPM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:5000/api/item/getlist/1/5",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"item",
+						"getlist",
+						"1",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVkZjI1MmNiZDNlMTgwMzFlMDlhZjgzZCIsInVzZXJuYW1lIjoid2VhMTIzIiwicGFzc3dvcmQiOiIkMmIkMTAkaVBwRXNNQ1k5cUQuOWR2MjBLcHlzT0k2WXJ0VjF5SDNCQ3JPcjB6Unk2YThoVzd4dHhYSUMiLCJlbWFpbCI6ImVhdzEyM0Bhc2Rhc2QiLCJjcmVhdGVkQXQiOiIyMDE5LTEyLTEyVDE0OjQ2OjM1LjA3MFoiLCJ1cGRhdGVkQXQiOiIyMDE5LTEyLTEyVDE0OjQ2OjM1LjA3MFoiLCJfX3YiOjB9LCJpYXQiOjE1NzYxNjc5NTcsImV4cCI6MTU3NjE2ODAxN30.sN0KPt_oS_JPFSJOWQ8FJYkLXhwHu53iooJtsUWGwsk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:5000/api/token",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
